@@ -1,5 +1,5 @@
 {
-  "name": "zap-stencil-components",
+  "name": "@zaplabs/zap-stencil-components",
   "version": "0.0.1",
   "description": "Zap Stencil Components",
   "main": "dist/zap-stencil-components.js",

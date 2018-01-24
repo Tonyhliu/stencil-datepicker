@@ -1,0 +1,27 @@
+week-header div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.week-header-test {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.week-header-test,
+.empty {
+  padding: 0 10px;
+}
+
+.empty {
+  color: lightgray;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.selected {
+  background-color: yellow;
+}

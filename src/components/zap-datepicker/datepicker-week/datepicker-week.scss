@@ -1,0 +1,6 @@
+datepicker-week div div {
+  // display: inline-block;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 0 10px;
+}

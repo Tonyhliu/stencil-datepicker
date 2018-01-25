@@ -2,12 +2,12 @@ exports.config = {
   namespace: 'zapstencilcomponents',
 
   // toggle these two for DEV
-  generateDistribution: false,
-  generateWWW: true,
+  // generateDistribution: false,
+  // generateWWW: true,
 
   // generate dist
-  // generateDistribution: true,
-  // generateWWW: false,
+  generateDistribution: true,
+  generateWWW: false,
 
   // The bundles config is an array of objects that represent how components are grouped together in lazy-loaded bundles. It is important to note that every Stencil component be included in a bundle. In the example above, each object in the bundles array has its own components array, which is the HTML tag name for each component. In general, the simplest approach is to give each component its own bundle. A more advanced optimization would be grouping commonly used components together.
   bundles: [

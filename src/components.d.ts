@@ -109,7 +109,7 @@ declare global {
 
 
 import {
-  DatepickerCalendar as ZapDatepicker
+  ZapDatepicker as ZapDatepicker
 } from './components/zap-datepicker/zap-datepicker';
 
 declare global {

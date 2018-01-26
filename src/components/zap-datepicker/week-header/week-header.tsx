@@ -69,6 +69,7 @@ export class WeekHeader {
     return (
       <div>
         {rows}
+        <p>TESTING FROM WEEK HEADER</p>
       </div>
     );
   }

@@ -45,7 +45,7 @@ exports.config = {
 
   // buildDir, default value: build
   // The buildDir config specifies where stencil's build files are saved after each build. These are the generated scripts which will be requested by the browser. The build directory should be relative to the wwwDir setting.
-  buildDir: "dist",
+  // buildDir: "dist",
 
   // publicPath, default value: / build
   // The publicPath config sets the fallback client - side base

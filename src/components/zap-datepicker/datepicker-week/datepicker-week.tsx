@@ -4,7 +4,6 @@ import {
   State
 } from '@stencil/core';
 
-
 @Component({
   tag: 'datepicker-week',
   styleUrl: 'datepicker-week.scss'

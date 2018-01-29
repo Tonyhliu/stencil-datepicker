@@ -4,7 +4,7 @@ import {
   State,
   Listen
 } from '@stencil/core';
-// import moment from 'moment';
+import moment from 'moment';
 
 @Component({
   tag: 'zap-datepicker',
@@ -16,14 +16,14 @@ export class ZapDatepicker {
   @Prop() multiDate: boolean;
 
   @State() dateObj: any = {
-    // date: moment(),
-    // year: moment().year(),
-    // month: moment().month(),
-    // day: moment().day(),
+    date: moment(),
+    year: moment().year(),
+    month: moment().month(),
+    day: moment().day(),
   };
   @State() selected: boolean = false;
   @State() selectedDate: any;
-  // @State() momentTest: any = moment;
+  @State() momentTest: any = moment;
 
   @Listen('dateSelected')
   dateSelectedHandler(event: CustomEvent) {
@@ -68,7 +68,7 @@ export class ZapDatepicker {
 
         this.dateObj = {
           ...this.dateObj,
-          // date: moment({year: newYear, month: (this.dateObj.month + 1) % 12}),
+          date: moment({year: newYear, month: (this.dateObj.month + 1) % 12}),
           month: (this.dateObj.month + 1) % 12,
           year: newYear ? newYear : this.dateObj.year
         };
@@ -89,7 +89,7 @@ export class ZapDatepicker {
 
         this.dateObj = {
           ...this.dateObj,
-          // date: moment({ year: newYear, month: newMonth }),
+          date: moment({ year: newYear, month: newMonth }),
           month: newMonth,
           year: newYear ? newYear : this.dateObj.year
         };
@@ -103,9 +103,9 @@ export class ZapDatepicker {
   }
 
   render() {
-    // const offset = moment({ year: this.dateObj.year, month: this.dateObj.month }).startOf('month').weekday();
-    // const lastDayOfLastMonth = moment(this.dateObj.date).subtract(1, 'months').endOf('month').date();
-    // const firstDayOfNextMonth = moment(this.dateObj.date).add(1, 'months').startOf('month').date();
+    const offset = moment({ year: this.dateObj.year, month: this.dateObj.month }).startOf('month').weekday();
+    const lastDayOfLastMonth = moment(this.dateObj.date).subtract(1, 'months').endOf('month').date();
+    const firstDayOfNextMonth = moment(this.dateObj.date).add(1, 'months').startOf('month').date();
 
     return (
       <div>
@@ -114,7 +114,7 @@ export class ZapDatepicker {
           year={this.dateObj.year}
           month={this.dateObj.month}
           updateCb={this.changeMonthAndYear.bind(this)}
-          // months={moment.months()}
+          months={moment.months()}
           >
         </month-header>
         <datepicker-week>
@@ -123,13 +123,13 @@ export class ZapDatepicker {
           // pass dateObj instead?
           date={this.dateObj.date}
           day={this.dateObj.day}
-          // daysInMonth={moment(this.dateObj.date).daysInMonth()}
-          // firstDay={firstDayOfNextMonth}
-          // lastDay={lastDayOfLastMonth}
-          // leap={this.dateObj.date.isLeapYear()}
+          daysInMonth={moment(this.dateObj.date).daysInMonth()}
+          firstDay={firstDayOfNextMonth}
+          lastDay={lastDayOfLastMonth}
+          leap={this.dateObj.date.isLeapYear()}
           month={this.dateObj.month}
-          // offset={offset}
-          selected={this.selected}
+          offset={offset}
+          // selected={this.selected}
           selectedDate={this.selectedDate}
           // updateCb={this.updateDate.bind(this)}
         ></week-header>

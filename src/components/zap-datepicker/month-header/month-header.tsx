@@ -1,7 +1,8 @@
 import {
   Component,
   Prop,
-  State
+  Event,
+  EventEmitter
 } from '@stencil/core';
 
 @Component({
@@ -10,16 +11,36 @@ import {
 })
 export class MonthHeader {
   @Prop() year: number;
-  @Prop() month: any;
+  @Prop() month: number;
   @Prop() updateCb: any;
   @Prop() months: any;
 
+  @Event() monthChanged: EventEmitter;
+  monthChangedHandler(arrowDirection) {
+    this.monthChanged.emit(arrowDirection)
+  }
+
   render() {
+    const months = {
+      0: 'January',
+      1: 'February',
+      2: 'March',
+      3: 'April',
+      4: 'May',
+      5: 'June',
+      6: 'July',
+      7: 'August',
+      8: 'September',
+      9: 'October',
+      10: 'November',
+      11: 'December'
+    };
+
     return (
       <div class="month-header">
-        <p onClick={this.updateCb.bind(null, 'minus')}>&#8592;</p>
-        <h1>{`${this.months[this.month]} ${this.year}` || 'Month Header'}</h1>
-        <p onClick={this.updateCb.bind(null, 'plus')}>&#8594;</p>
+        <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>
+        <h1>{`${months[this.month]} ${this.year}` || 'Month Header'}</h1>
+        <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p>
       </div>
     );
   }

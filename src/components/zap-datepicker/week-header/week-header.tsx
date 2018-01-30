@@ -3,8 +3,8 @@ import {
   Prop,
   Event,
   EventEmitter,
-  Listen
 } from '@stencil/core';
+import dateFns from 'date-fns';
 
 @Component({
   tag: 'week-header',
@@ -13,15 +13,11 @@ import {
 export class WeekHeader {
   @Prop() date: any;
   @Prop() day: number;
-  @Prop() daysInMonth: any;
-  @Prop() firstDay: number;
+  @Prop() daysInMonth: number;
   @Prop() lastDay: number;
-  @Prop() leap: boolean;
   @Prop() month: number;
   @Prop() offset: number;
-  @Prop() selected: boolean;
   @Prop() selectedDate: any;
-  @Prop() updateCb: any;
 
   @Event() dateSelected: EventEmitter;
   dateSelectedHandler(evt) {
@@ -31,7 +27,7 @@ export class WeekHeader {
   render() {
     let rows = [];
     let lastDay = this.lastDay - this.offset;
-    let firstDay = this.firstDay;
+    let firstDay = 1;
     let day = 1;
 
     for (let i = 0; i < 42; i++) {
@@ -49,16 +45,19 @@ export class WeekHeader {
         let className = 'week-header-test';
         let selectedDay;
         let selectedMonth;
-        let selectedYear;
-        let selectedTest;
+        let selected;
+        // let selectedYear;
         if (this.selectedDate) {
-          selectedDay = this.selectedDate.date();
-          selectedMonth = this.selectedDate.month();
-          selectedYear = this.selectedDate.year();
-          selectedTest = (selectedDay === day && selectedMonth === this.month)
+          debugger
+          selectedDay = new Date(this.selectedDate).getUTCDate();
+          selectedMonth = (dateFns.getMonth(this.selectedDate) + 1) % 12;
+          // selectedYear = this.selectedDate.year();
+          selected = (selectedDay === day && selectedMonth === this.month)
+          // debugger
         }
+
         // debugger;
-        className += selectedTest ? ' selected ' : '';
+        className += selected ? ' selected ' : '';
         rows.push(
           <p class={className} onClick={this.dateSelectedHandler.bind(this)}>{day}</p>
         )
@@ -69,7 +68,6 @@ export class WeekHeader {
     return (
       <div>
         {rows}
-        <p>TESTING FROM WEEK HEADER</p>
       </div>
     );
   }

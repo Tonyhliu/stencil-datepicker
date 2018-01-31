@@ -4,8 +4,6 @@ import {
   State,
   Listen
 } from '@stencil/core';
-// import moment from 'moment';
-// import isToday from 'date-fns/is_today';
 import dateFns from 'date-fns';
 
 @Component({
@@ -41,6 +39,7 @@ export class ZapDatepicker {
 
     console.log('date obj', this.dateObj);
     console.log('date', this.dateObj.date);
+    console.log('selectedDate', this.selectedDate);
   }
 
   @Listen('monthChanged')
@@ -66,6 +65,7 @@ export class ZapDatepicker {
 
         console.log('date obj', this.dateObj);
         console.log('date', this.dateObj.date);
+        console.log('selectedDate', this.selectedDate);
         break;
       case 'minus':
         if (this.dateObj.month === 1) {
@@ -84,6 +84,7 @@ export class ZapDatepicker {
 
         console.log('date obj', this.dateObj);
         console.log('date', this.dateObj.date);
+        console.log('selectedDate', this.selectedDate);
         break;
       default:
         break;
@@ -97,9 +98,19 @@ export class ZapDatepicker {
     const lastMonth = currentMonth - 1 < 0 ? 11 : currentMonth - 1;
     const lastYear = this.dateObj.year - 1;
 
+    let minimumDate = new Date(this.minDate);
+    let minYear = minimumDate.getFullYear();
+    let minMonth = minimumDate.getMonth() + 1;
+    let minDay = minimumDate.getUTCDate();
+    const minDateObj = {
+      minimumDate,
+      minYear,
+      minMonth,
+      minDay
+    }
     return (
       <div>
-        <p>Calendar Test</p>
+        <p class='selected-date'>{this.selectedDate || 'Date'}</p>
         <month-header
           year={this.dateObj.year}
           month={this.dateObj.month - 1}
@@ -113,9 +124,12 @@ export class ZapDatepicker {
           day={this.dateObj.day}
           daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObj.year, currentMonth))}
           lastDay={dateFns.getDaysInMonth(new Date(lastYear, lastMonth))}
+          lastDayOfMonth={dateFns.lastDayOfMonth(new Date(this.dateObj.year, this.dateObj.month, 0, 0, 0, 0))}
+          minDateObj={minDateObj}
           month={this.dateObj.month}
           offset={offset}
           selectedDate={this.selectedDate}
+          year={this.dateObj.year}
         ></week-header>
       </div>
     );

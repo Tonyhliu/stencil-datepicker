@@ -15,9 +15,12 @@ export class WeekHeader {
   @Prop() day: number;
   @Prop() daysInMonth: number;
   @Prop() lastDay: number;
+  @Prop() lastDayOfMonth: any;
   @Prop() month: number;
+  @Prop() minDateObj: any;
   @Prop() offset: number;
   @Prop() selectedDate: any;
+  @Prop() year: number;
 
   @Event() dateSelected: EventEmitter;
   dateSelectedHandler(evt) {
@@ -28,41 +31,45 @@ export class WeekHeader {
     let rows = [];
     let lastDay = this.lastDay - this.offset;
     let firstDay = 1;
-    let day = 1;
 
-    for (let i = 0; i < 42; i++) {
-      if (i < this.offset) {
-        rows.push(
-          <p class='empty'>{lastDay + 1}</p>
-        );
-        lastDay++;
-      } else if (day > this.daysInMonth) {
-        rows.push(
-          <p class='empty'>{firstDay}</p>
-        )
-        firstDay++;
+    let offset = this.offset % 7;
+    for (let blank = 0; blank < offset; blank++) {
+      rows.push(
+        <p class='empty'>{lastDay + 1}</p>
+      );
+      lastDay++;
+    }
+
+    for (let day = 1; day <= this.daysInMonth; day++) {
+      let className = 'week-header-test';
+      let selectedDay,
+        selectedMonth,
+        selected;
+
+      if (this.month === this.minDateObj.minMonth && day < this.minDateObj.minDay && new Date(this.date).getFullYear() === this.minDateObj.minYear) {
+          rows.push(
+            <p class='empty'>{day}</p>
+          )
       } else {
-        let className = 'week-header-test';
-        let selectedDay;
-        let selectedMonth;
-        let selected;
-        // let selectedYear;
         if (this.selectedDate) {
-          debugger
           selectedDay = new Date(this.selectedDate).getUTCDate();
           selectedMonth = (dateFns.getMonth(this.selectedDate) + 1) % 12;
-          // selectedYear = this.selectedDate.year();
           selected = (selectedDay === day && selectedMonth === this.month)
-          // debugger
         }
 
-        // debugger;
         className += selected ? ' selected ' : '';
         rows.push(
           <p class={className} onClick={this.dateSelectedHandler.bind(this)}>{day}</p>
         )
-        day++;
       }
+    }
+
+    // 3 is weds
+    for (let lastDayDate = this.lastDayOfMonth.getDay(); lastDayDate < 6; lastDayDate++) {
+      rows.push(
+        <p class='empty'>{firstDay}</p>
+      )
+      firstDay++;
     }
 
     return (

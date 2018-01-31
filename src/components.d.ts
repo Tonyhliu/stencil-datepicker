@@ -33,9 +33,12 @@ declare global {
       day?: number;
       daysInMonth?: number;
       lastDay?: number;
+      lastDayOfMonth?: any;
+      minDateObj?: any;
       month?: number;
       offset?: number;
       selectedDate?: any;
+      year?: number;
     }
   }
 }

@@ -27,7 +27,6 @@ export class ZapDatepicker {
   dateSelectedHandler(event: CustomEvent) {
     let selectedDay = parseInt(event.detail.innerHTML);
     let newDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, selectedDay), 'MM/DD/YYYY');
-    // debugger;
 
     this.selectedDate = newDate;
     this.dateObj = {
@@ -36,6 +35,8 @@ export class ZapDatepicker {
       month: dateFns.getMonth(newDate) + 1,
       day: selectedDay
     };
+
+    this._closeDatepicker(event.target);
 
     console.log('date obj', this.dateObj);
     console.log('date', this.dateObj.date);
@@ -91,6 +92,29 @@ export class ZapDatepicker {
     }
   }
 
+  _clickOffDatepickerHandler = (e) => {
+    if (e.target.closest('div.zap-datepicker') == null) {
+      this._closeDatepicker(e.target.querySelector('week-header'));
+    }
+  }
+
+  componentDidLoad() {
+    document.addEventListener('click', this._clickOffDatepickerHandler)
+  }
+
+  componentDidUnload() {
+    document.removeEventListener('click', this._clickOffDatepickerHandler);
+  }
+
+  _toggleDatepicker(e) {
+    let datepickerContainer = e.target.nextSibling;
+    datepickerContainer.style.display = datepickerContainer.style.display ? '' : 'block';
+  }
+
+  _closeDatepicker(weekheaderElement) {
+    weekheaderElement.parentElement.style.display = '';
+  }
+
   render() {
     const currentMonth = this.dateObj.month - 1;
     const offset = dateFns.getISODay(new Date(this.dateObj.year, currentMonth, 1));
@@ -121,30 +145,44 @@ export class ZapDatepicker {
     }
 
     return (
-      <div>
-        <p class='selected-date'>{this.selectedDate || 'Date'}</p>
-        <month-header
-          year={this.dateObj.year}
-          month={this.dateObj.month - 1}
-          >
-        </month-header>
-        <datepicker-week>
-        </datepicker-week>
-        <week-header
-          // pass dateObj instead?
-          date={this.dateObj.date}
-          day={this.dateObj.day}
-          daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObj.year, currentMonth))}
-          lastDay={dateFns.getDaysInMonth(new Date(lastYear, lastMonth))}
-          lastDayOfMonth={dateFns.lastDayOfMonth(new Date(this.dateObj.year, this.dateObj.month, 0, 0, 0, 0))}
-          maxDateObj={maxDateObj}
-          minDateObj={minDateObj}
-          month={this.dateObj.month}
-          offset={offset}
-          selectedDate={this.selectedDate}
-          year={this.dateObj.year}
-        ></week-header>
+      <div class='zap-datepicker'>
+        <p class='selected-date'
+          onClick={this._toggleDatepicker}>{this.selectedDate || 'Date'}</p>
+
+        <div class='datepicker-container'>
+          <month-header
+            year={this.dateObj.year}
+            month={this.dateObj.month - 1}
+            >
+          </month-header>
+          <datepicker-week>
+          </datepicker-week>
+          <week-header
+            // pass dateObj instead?
+            date={this.dateObj.date}
+            day={this.dateObj.day}
+            daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObj.year, currentMonth))}
+            lastDay={dateFns.getDaysInMonth(new Date(lastYear, lastMonth))}
+            lastDayOfMonth={dateFns.lastDayOfMonth(new Date(this.dateObj.year, this.dateObj.month, 0, 0, 0, 0))}
+            maxDateObj={maxDateObj}
+            minDateObj={minDateObj}
+            month={this.dateObj.month}
+            offset={offset}
+            selectedDate={this.selectedDate}
+            year={this.dateObj.year}
+          ></week-header>
+          </div>
+
       </div>
     );
   }
 }
+
+// interface
+
+// @State() dateObj: any = {
+//   date: dateFns.format(new Date(), 'MM/DD/YYYY'),
+//   year: parseInt(dateFns.format(new Date(), 'YYYY')),
+//   month: parseInt(dateFns.format(new Date(), 'M')),
+//   day: parseInt(dateFns.format(new Date(), 'D')),
+// };

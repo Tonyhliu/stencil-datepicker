@@ -5,4 +5,12 @@
   justify-content: center;
   margin: 0 auto;
   width: 150px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.datepicker-container {
+  display: none;
 }

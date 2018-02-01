@@ -17,6 +17,7 @@ export class WeekHeader {
   @Prop() lastDay: number;
   @Prop() lastDayOfMonth: any;
   @Prop() month: number;
+  @Prop() maxDateObj: any;
   @Prop() minDateObj: any;
   @Prop() offset: number;
   @Prop() selectedDate: any;
@@ -46,14 +47,19 @@ export class WeekHeader {
         selectedMonth,
         selected;
 
-      if (this.month === this.minDateObj.minMonth && day < this.minDateObj.minDay && new Date(this.date).getFullYear() === this.minDateObj.minYear) {
-          rows.push(
-            <p class='empty'>{day}</p>
-          )
+
+      const currentDate = new Date(this.year, this.month - 1, day);
+      const maxDate = new Date(this.maxDateObj.maximumDate);
+      const minDate = new Date(this.minDateObj.minimumDate);
+      // debugger;
+      if (dateFns.isAfter(minDate, currentDate) || dateFns.isBefore(maxDate, currentDate)) {
+        rows.push(
+          <p class='empty'>{day}</p>
+        )
       } else {
         if (this.selectedDate) {
           selectedDay = new Date(this.selectedDate).getUTCDate();
-          selectedMonth = (dateFns.getMonth(this.selectedDate) + 1) % 12;
+          selectedMonth = dateFns.getMonth(this.selectedDate) + 1;
           selected = (selectedDay === day && selectedMonth === this.month)
         }
 
@@ -64,7 +70,8 @@ export class WeekHeader {
       }
     }
 
-    // 3 is weds
+    // Wednesday -> 3
+    // Get the last day of the month to prepopulate rest of month with days of next month
     for (let lastDayDate = this.lastDayOfMonth.getDay(); lastDayDate < 6; lastDayDate++) {
       rows.push(
         <p class='empty'>{firstDay}</p>

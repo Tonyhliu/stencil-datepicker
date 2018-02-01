@@ -34,6 +34,7 @@ declare global {
       daysInMonth?: number;
       lastDay?: number;
       lastDayOfMonth?: any;
+      maxDateObj?: any;
       minDateObj?: any;
       month?: number;
       offset?: number;

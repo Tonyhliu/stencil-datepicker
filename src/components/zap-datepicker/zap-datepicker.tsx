@@ -98,7 +98,7 @@ export class ZapDatepicker {
     const lastMonth = currentMonth - 1 < 0 ? 11 : currentMonth - 1;
     const lastYear = this.dateObj.year - 1;
 
-    let minimumDate = new Date(this.minDate);
+    let minimumDate = this.minDate === 'default' ? new Date(this.dateObj.date) : new Date(this.minDate);
     let minYear = minimumDate.getFullYear();
     let minMonth = minimumDate.getMonth() + 1;
     let minDay = minimumDate.getUTCDate();
@@ -108,6 +108,18 @@ export class ZapDatepicker {
       minMonth,
       minDay
     }
+
+    let maximumDate = new Date(this.maxDate);
+    let maxYear = maximumDate.getFullYear();
+    let maxMonth = maximumDate.getMonth() + 1;
+    let maxDay = maximumDate.getUTCDate();
+    const maxDateObj = {
+      maximumDate,
+      maxYear,
+      maxMonth,
+      maxDay
+    }
+
     return (
       <div>
         <p class='selected-date'>{this.selectedDate || 'Date'}</p>
@@ -125,6 +137,7 @@ export class ZapDatepicker {
           daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObj.year, currentMonth))}
           lastDay={dateFns.getDaysInMonth(new Date(lastYear, lastMonth))}
           lastDayOfMonth={dateFns.lastDayOfMonth(new Date(this.dateObj.year, this.dateObj.month, 0, 0, 0, 0))}
+          maxDateObj={maxDateObj}
           minDateObj={minDateObj}
           month={this.dateObj.month}
           offset={offset}

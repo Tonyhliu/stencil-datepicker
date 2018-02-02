@@ -4,7 +4,7 @@
   font-size: 30px;
   justify-content: center;
   margin: 0 auto;
-  width: 150px;
+  width: 300px;
 
   &:hover {
     cursor: pointer;
@@ -13,4 +13,8 @@
 
 .datepicker-container {
   display: none;
+}
+
+.month-container {
+  display: inline-block;
 }

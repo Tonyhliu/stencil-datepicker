@@ -12,8 +12,9 @@ import {
 export class MonthHeader {
   @Prop() year: number;
   @Prop() month: number;
-  @Prop() updateCb: any;
   @Prop() months: any;
+  @Prop() secondMonthHeader: boolean;
+  @Prop() updateCb: any;
 
   @Event() monthChanged: EventEmitter;
   monthChangedHandler(arrowDirection) {
@@ -36,11 +37,14 @@ export class MonthHeader {
       11: 'December'
     };
 
+    const arrow = this.secondMonthHeader ? <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p> : <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>;
     return (
       <div class="month-header">
+        {/* {this.secondMonthHeader ? '' : arrow} */}
         <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>
-        <h1>{`${months[this.month]} ${this.year}` || 'Month Header'}</h1>
+          <h1>{`${months[this.month]} ${this.year}` || 'Month Header'}</h1>
         <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p>
+        {/* {this.secondMonthHeader ? arrow : ''} */}
       </div>
     );
   }

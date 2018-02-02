@@ -3,25 +3,39 @@ week-header div {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.week-header-test {
+.week-header {
   &:hover {
     cursor: pointer;
   }
+
+  &.selected,
+  &.selected ~ &.after-date,
+  &.after-date {
+    background-color: pink;
+  }
+
+  &.before-date:hover {
+    background-color: gray;
+  }
 }
 
-.week-header-test,
+.week-header,
 .empty {
   padding: 0 10px;
 }
 
 .empty {
-  color: lightgray;
+  color: #bbbbbb;
+
+  &.last-month {
+    color: #f3f0f0;
+  }
+
+  &.next-month {
+    color: #f3f0f0;
+  }
 
   &:hover {
     cursor: not-allowed;
   }
-}
-
-.selected {
-  background-color: yellow;
 }

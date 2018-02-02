@@ -14,21 +14,21 @@ export class DatepickerWeek {
   }
 
   render() {
-    const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
+    const days = {
+      'Sunday': 'Sun',
+      'Monday': 'Mon',
+      'Tuesday': 'Tue',
+      'Wednesday': 'Wed',
+      'Thursday': 'Thu',
+      'Friday': 'Fri',
+      'Saturday': 'Sat',
+    };
 
     return (
       <div>
         <div>
           {
-            days.map(day => {
+            Object.keys(days).map(day => {
               return (
                 <p class='datepicker-week-test' onClick={this._sayDay}>{day}</p>
               )

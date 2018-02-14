@@ -1,9 +1,9 @@
 .selected-date {
-  border-bottom: 2px solid green;
+  border: 2px solid green;
   display: flex;
-  font-size: 30px;
+  font-size: 26px;
   justify-content: center;
-  margin: 0 auto;
+  padding: 10px;
   width: 300px;
 
   &:hover {
@@ -11,10 +11,32 @@
   }
 }
 
+.zap-datepicker {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 620px !important;
+  height: 366px !important;
+  position: relative !important;
+}
+
 .datepicker-container {
   display: none;
+  position: absolute !important;
+  left: 0px !important;
+  z-index: 10 !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.15) !important;
+  padding: 24px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  white-space: normal !important;
+  top: 90px !important;
+  visibility: visible !important;
 }
 
 .month-container {
   display: inline-block;
+  width: 50%;
 }

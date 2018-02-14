@@ -40,7 +40,6 @@ export class WeekHeader {
   }
 
   render() {
-    // debugger
     let rows = [];
     let lastDay = this.lastDay - this.offset;
     let firstDay = 1;
@@ -57,6 +56,7 @@ export class WeekHeader {
       let className = 'week-header';
       let selectedDay,
         selectedMonth,
+        selectedYear,
         selected,
         beforeDate,
         afterDate;
@@ -80,7 +80,8 @@ export class WeekHeader {
           // if firstDate selected and hovering
           selectedDay = new Date(this.datesObj.firstDate).getUTCDate();
           selectedMonth = dateFns.getMonth(this.datesObj.firstDate) + 1;
-          selected = (selectedDay === day && selectedMonth === this.month);
+          selectedYear = dateFns.getYear(this.datesObj.firstDate);
+          selected = (selectedDay === day && selectedMonth === this.month && selectedYear === this.year);
 
           if (dateFns.isBefore(currentDate, this.datesObj.firstDate)) {
             beforeDate = true;
@@ -96,7 +97,8 @@ export class WeekHeader {
             let selectedDate = this.selectedDate || this.datesObj.firstDate;
             selectedDay = new Date(selectedDate).getUTCDate();
             selectedMonth = dateFns.getMonth(selectedDate) + 1;
-            selected = (selectedDay === day && selectedMonth === this.month)
+            selectedYear = dateFns.getYear(selectedDate);
+            selected = (selectedDay === day && selectedMonth === this.month && selectedYear === this.year)
           }
         }
 
@@ -121,7 +123,7 @@ export class WeekHeader {
     }
 
     return (
-      <div>
+      <div class='week-header-tbody'>
         {rows}
       </div>
     );

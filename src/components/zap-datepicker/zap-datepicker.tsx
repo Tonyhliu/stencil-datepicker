@@ -27,6 +27,14 @@ export class ZapDatepicker {
     selectedDate: null
   };
 
+  @State() newDate: string = dateFns.format(dateFns.addMonths(this.dateObj.date, 1), 'MM/DD/YYYY');
+  @State() dateObjTwo: any = {
+    date: this.newDate,
+    year: parseInt(dateFns.format(this.newDate, 'YYYY')),
+    month: parseInt(dateFns.format(this.newDate, 'M')),
+    day: parseInt(dateFns.format(this.newDate, 'D'))
+  }
+
   @State() datesObj: any = {
     firstDate: null,
     secondDate: null,
@@ -36,17 +44,22 @@ export class ZapDatepicker {
   @Listen('singleDateSelected')
   singleDateSelectedHandler(event: CustomEvent) {
     let selectedDay = parseInt(event.detail.innerHTML);
-    let newDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, selectedDay), 'MM/DD/YYYY');
+    let newDate;
+    if (event.srcElement.getAttribute('data-second-month-header')) {
+      newDate = dateFns.format(new Date(this.dateObjTwo.year, this.dateObjTwo.month - 1, selectedDay), 'MM/DD/YYYY');
+    } else {
+      newDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, selectedDay), 'MM/DD/YYYY');
+    }
 
     this.dateObj = {
       ...this.dateObj,
       date: newDate,
-      month: dateFns.getMonth(newDate) + 1,
+      // month: dateFns.getMonth(newDate) + 1,
       day: selectedDay,
       selectedDate: newDate
     };
 
-    this._closeDatepicker(event.target);
+    this._closeDatepicker();
 
     console.log('date obj', this.dateObj);
     console.log('date', this.dateObj.date);
@@ -56,7 +69,12 @@ export class ZapDatepicker {
   @Listen('multiDateSelected')
   multiDateSelectedHandler(event: CustomEvent) {
     let selectedDay = parseInt(event.detail.innerHTML);
-    let newDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, selectedDay), 'MM/DD/YYYY');
+    let newDate;
+    if (event.srcElement.getAttribute('data-second-month-header')) {
+      newDate = dateFns.format(new Date(this.dateObjTwo.year, this.dateObjTwo.month - 1, selectedDay), 'MM/DD/YYYY');
+    } else {
+      newDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, selectedDay), 'MM/DD/YYYY');
+    }
 
     // reset on subsequent clicks after first and second dates have been set
     if (this.datesObj.firstDate && this.datesObj.secondDate || dateFns.isBefore(new Date(newDate), new Date(this.datesObj.firstDate))) {
@@ -77,9 +95,7 @@ export class ZapDatepicker {
       }
     }
 
-    // close DP on second click
-    // this._closeDatepicker(event.target);
-    // clear button (mobile only?)
+    // on hover (march 1 2018 - march 1 2019)
     // apply button? only on range selector?
     // handle same date click for multi range
 
@@ -88,12 +104,17 @@ export class ZapDatepicker {
 
   @Listen('multiDateHover')
   multiDateHoverHandler(event: CustomEvent) {
-    // debugger
     let hoveredDay = parseInt(event.detail.innerHTML);
-    let hoveredDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, hoveredDay), 'MM/DD/YYYY');
+    let hoveredDate;
+    if (event.srcElement.getAttribute('data-second-month-header')) {
+      hoveredDate = dateFns.format(new Date(this.dateObjTwo.year, this.dateObjTwo.month - 1, hoveredDay), 'MM/DD/YYYY');
+    } else {
+      hoveredDate = dateFns.format(new Date(this.dateObj.year, this.dateObj.month - 1, hoveredDay), 'MM/DD/YYYY');
+    }
+
     this.datesObj = {
       ...this.datesObj,
-      hoveredDate: hoveredDate
+      hoveredDate
     };
   }
 
@@ -101,6 +122,7 @@ export class ZapDatepicker {
   monthChangedHandler(event: CustomEvent) {
     let newYear = this.dateObj.year;
     let newMonth;
+    let newDate;
 
     switch (event.detail) {
       case 'plus':
@@ -116,6 +138,14 @@ export class ZapDatepicker {
           month: newMonth,
           year: newYear
         };
+
+        newDate = dateFns.format(dateFns.addMonths(this.dateObj.date, 1), 'MM/DD/YYYY')
+        this.dateObjTwo = {
+          ...this.dateObjTwo,
+          date: newDate,
+          year: parseInt(dateFns.format(newDate, 'YYYY')),
+          month: parseInt(dateFns.format(newDate, 'M')),
+        }
 
         console.log('date obj', this.dateObj);
         console.log('date', this.dateObj.date);
@@ -136,6 +166,14 @@ export class ZapDatepicker {
           year: newYear ? newYear : this.dateObj.year
         };
 
+        newDate = dateFns.format(dateFns.addMonths(this.dateObj.date, 1), 'MM/DD/YYYY');
+        this.dateObjTwo = {
+          ...this.dateObjTwo,
+          date: newDate,
+          year: parseInt(dateFns.format(newDate, 'YYYY')),
+          month: parseInt(dateFns.format(newDate, 'M')),
+        }
+
         console.log('date obj', this.dateObj);
         console.log('date', this.dateObj.date);
         console.log('selectedDate', this.dateObj.selectedDate);
@@ -147,12 +185,13 @@ export class ZapDatepicker {
 
   _clickOffDatepickerHandler = (e) => {
     if (e.target.closest('div.zap-datepicker') == null) {
-      this._closeDatepicker(e.target.querySelector('week-header'));
+      this._closeDatepicker();
     }
   }
 
   componentDidLoad() {
     document.addEventListener('click', this._clickOffDatepickerHandler)
+    // this._addTableRows();
   }
 
   componentDidUnload() {
@@ -161,11 +200,13 @@ export class ZapDatepicker {
 
   _toggleDatepicker(e) {
     let datepickerContainer = e.target.nextSibling;
-    datepickerContainer.style.display = datepickerContainer.style.display ? '' : 'block';
+    let displayStyle = datepickerContainer.getAttribute('style') ? '' : 'display: inline-block !important';
+    datepickerContainer.setAttribute('style', displayStyle);
   }
 
-  _closeDatepicker(weekheaderElement) {
-    weekheaderElement.parentElement.style.display = '';
+  _closeDatepicker() {
+    let datepickerElement = document.querySelector('.datepicker-container');
+    datepickerElement.setAttribute('style', '');
 
     // if click off after picking first but not second date
     if (this.datesObj.firstDate && !this.datesObj.secondDate) {
@@ -176,6 +217,56 @@ export class ZapDatepicker {
       };
     }
   }
+
+  _clearDates(e) {
+    e.preventDefault();
+
+    this.dateObj = {
+      ...this.dateObj,
+      selectedDate: null
+    }
+
+    this.datesObj = {
+      ...this.datesObj,
+      firstDate: null,
+      secondDate: null,
+      hoveredDate: null
+    }
+  }
+
+  _applyDates(e) {
+    e.preventDefault();
+    e = {
+      ...e,
+      target: e.target.parentElement.previousSibling
+    }
+    this._toggleDatepicker(e);
+  }
+
+  // _addTableRows() {
+  //   let originalWeekHeaderElement = document.querySelector('.week-header-tbody');
+  //   originalWeekHeaderElement.innerHTML = '';
+  //   let weekHeaderTbodyElement = Array.prototype.slice.call(document.querySelector('.week-header-tbody').children);
+  //   let newElements = [];
+  //   let newRow;
+
+  //   debugger
+  //   for (let i = 0; i < weekHeaderTbodyElement.length; i++) {
+  //     console.log('i', i);
+  //     if (i % 7 === 0) {
+  //       newRow = document.createElement('tr');
+  //     }
+  //     console.log('child', weekHeaderTbodyElement[i]);
+  //     newRow.appendChild(weekHeaderTbodyElement[i]);
+  //     console.log('newRow', newRow);
+
+  //     if (i % 7 === 0 && i > 0) {
+  //       newElements.push(newRow);
+  //     }
+  //   }
+
+  //   document.querySelector('.week-header-tbody').appendChild(newElements);
+  // }
 
   render() {
     const currentMonth = this.dateObj.month - 1;
@@ -219,7 +310,6 @@ export class ZapDatepicker {
             <datepicker-week>
             </datepicker-week>
             <week-header
-              // pass dateObj instead?
               date={this.dateObj.date}
               datesObj={this.datesObj}
               day={this.dateObj.day}
@@ -234,7 +324,33 @@ export class ZapDatepicker {
               year={this.dateObj.year}
             ></week-header>
           </div>
-
+          <div class='month-container'>
+            <month-header
+              year={this.dateObjTwo.year}
+              month={this.dateObjTwo.month - 1}
+              secondMonthHeader
+              >
+            </month-header>
+            <datepicker-week>
+            </datepicker-week>
+            <week-header
+              data-second-month-header
+              date={this.dateObjTwo.date}
+              datesObj={this.datesObj}
+              day={this.dateObjTwo.day}
+              daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObjTwo.year, currentMonth))}
+              lastDay={dateFns.getDaysInMonth(new Date(lastYear, lastMonth))}
+              lastDayOfMonth={dateFns.lastDayOfMonth(new Date(this.dateObjTwo.year, this.dateObjTwo.month, 0, 0, 0, 0))}
+              dateRestrictionObj={dateRestrictionObj}
+              month={this.dateObjTwo.month}
+              multidate={this.multiDate}
+              offset={offset}
+              selectedDate={this.dateObj.selectedDate}
+              year={this.dateObjTwo.year}
+            ></week-header>
+          </div>
+          <button onClick={(e) => this._clearDates(e)}>Clear</button>
+          {this.multiDate ? <button onClick={(e) => this._applyDates(e)}>Apply</button> : ''}
         </div>
       </div>
     );

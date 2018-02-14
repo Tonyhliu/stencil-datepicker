@@ -40,11 +40,9 @@ export class MonthHeader {
     const arrow = this.secondMonthHeader ? <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p> : <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>;
     return (
       <div class="month-header">
-        {/* {this.secondMonthHeader ? '' : arrow} */}
-        <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>
-          <h1>{`${months[this.month]} ${this.year}` || 'Month Header'}</h1>
-        <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p>
-        {/* {this.secondMonthHeader ? arrow : ''} */}
+        {this.secondMonthHeader ? '' : arrow}
+          <h3>{`${months[this.month]} ${this.year}` || 'Month Header'}</h3>
+        {this.secondMonthHeader ? arrow : ''}
       </div>
     );
   }

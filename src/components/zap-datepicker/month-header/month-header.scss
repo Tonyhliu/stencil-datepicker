@@ -1,7 +1,13 @@
 .month-header {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  display: flex !important;
+  justify-content: center !important;
+  align-content: center !important;
+  color: #565a5c !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  padding-top: 22px !important;
+  padding-bottom: 37px !important;
+  caption-side: initial !important;
 
   p {
     padding: 0 50px;

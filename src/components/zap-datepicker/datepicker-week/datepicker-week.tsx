@@ -15,13 +15,13 @@ export class DatepickerWeek {
 
   render() {
     const days = {
-      'Sunday': 'Sun',
-      'Monday': 'Mon',
-      'Tuesday': 'Tue',
-      'Wednesday': 'Wed',
-      'Thursday': 'Thu',
-      'Friday': 'Fri',
-      'Saturday': 'Sat',
+      'Sunday': 'Su',
+      'Monday': 'Mo',
+      'Tuesday': 'Tu',
+      'Wednesday': 'We',
+      'Thursday': 'Th',
+      'Friday': 'Fr',
+      'Saturday': 'Sa',
     };
 
     return (
@@ -30,7 +30,7 @@ export class DatepickerWeek {
           {
             Object.keys(days).map(day => {
               return (
-                <p class='datepicker-week-test' onClick={this._sayDay}>{day}</p>
+                <p class='datepicker-week-test' onClick={this._sayDay}>{days[day]}</p>
               )
             })
           }

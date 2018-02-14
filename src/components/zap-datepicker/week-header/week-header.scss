@@ -1,6 +1,10 @@
 week-header div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  p:not(.empty):hover {
+    background-color: gray;
+  }
 }
 
 .week-header {
@@ -39,3 +43,9 @@ week-header div {
     cursor: not-allowed;
   }
 }
+
+// .week-header-tbody {
+//   display: table-row-group;
+//   vertical-align: middle;
+//   border-color: inherit;
+// }

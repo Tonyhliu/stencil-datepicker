@@ -32,11 +32,12 @@
   overflow-y: auto !important;
   overflow-x: hidden !important;
   white-space: normal !important;
+  text-align: center;
   top: 90px !important;
   visibility: visible !important;
 }
 
 .month-container {
   display: inline-block;
-  width: 50%;
+  width: calc(50% - 10px);
 }

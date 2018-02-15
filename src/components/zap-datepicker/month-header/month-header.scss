@@ -1,3 +1,13 @@
+.month-container {
+  &:first-child {
+    margin-right: 10px !important;
+  }
+
+  &:not(:first-child) {
+    margin-left: 10px !important;
+  }
+}
+
 .month-header {
   display: flex !important;
   justify-content: center !important;
@@ -10,8 +20,10 @@
   caption-side: initial !important;
 
   p {
-    padding: 0 50px;
     align-self: center;
+    border: 1px solid #c4c4c4 !important;
+    padding: 5px 10px;
+    margin: 0 40px;
 
     &:hover {
       cursor: pointer;

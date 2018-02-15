@@ -123,7 +123,7 @@ export class WeekHeader {
     }
 
     return (
-      <div class='week-header-tbody'>
+      <div class='week-header-container'>
         {rows}
       </div>
     );

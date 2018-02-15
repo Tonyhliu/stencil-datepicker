@@ -95,7 +95,6 @@ export class ZapDatepicker {
       }
     }
 
-    // on hover (march 1 2018 - march 1 2019)
     // apply button? only on range selector?
     // handle same date click for multi range
 
@@ -191,7 +190,6 @@ export class ZapDatepicker {
 
   componentDidLoad() {
     document.addEventListener('click', this._clickOffDatepickerHandler)
-    // this._addTableRows();
   }
 
   componentDidUnload() {
@@ -243,34 +241,10 @@ export class ZapDatepicker {
     this._toggleDatepicker(e);
   }
 
-  // _addTableRows() {
-  //   let originalWeekHeaderElement = document.querySelector('.week-header-tbody');
-  //   originalWeekHeaderElement.innerHTML = '';
-  //   let weekHeaderTbodyElement = Array.prototype.slice.call(document.querySelector('.week-header-tbody').children);
-  //   let newElements = [];
-  //   let newRow;
-
-  //   debugger
-  //   for (let i = 0; i < weekHeaderTbodyElement.length; i++) {
-  //     console.log('i', i);
-  //     if (i % 7 === 0) {
-  //       newRow = document.createElement('tr');
-  //     }
-  //     console.log('child', weekHeaderTbodyElement[i]);
-  //     newRow.appendChild(weekHeaderTbodyElement[i]);
-  //     console.log('newRow', newRow);
-
-  //     if (i % 7 === 0 && i > 0) {
-  //       newElements.push(newRow);
-  //     }
-  //   }
-
-  //   document.querySelector('.week-header-tbody').appendChild(newElements);
-  // }
-
   render() {
     const currentMonth = this.dateObj.month - 1;
     const offset = dateFns.getISODay(new Date(this.dateObj.year, currentMonth, 1));
+    const offsetTwo = dateFns.getISODay(new Date(this.dateObj.year, currentMonth + 1, 1));
     const lastMonth = currentMonth - 1 < 0 ? 11 : currentMonth - 1;
     const lastYear = this.dateObj.year - 1;
 
@@ -338,13 +312,13 @@ export class ZapDatepicker {
               date={this.dateObjTwo.date}
               datesObj={this.datesObj}
               day={this.dateObjTwo.day}
-              daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObjTwo.year, currentMonth))}
+              daysInMonth={dateFns.getDaysInMonth(new Date(this.dateObjTwo.year, currentMonth + 1))}
               lastDay={dateFns.getDaysInMonth(new Date(lastYear, lastMonth))}
               lastDayOfMonth={dateFns.lastDayOfMonth(new Date(this.dateObjTwo.year, this.dateObjTwo.month, 0, 0, 0, 0))}
               dateRestrictionObj={dateRestrictionObj}
               month={this.dateObjTwo.month}
               multidate={this.multiDate}
-              offset={offset}
+              offset={offsetTwo}
               selectedDate={this.dateObj.selectedDate}
               year={this.dateObjTwo.year}
             ></week-header>

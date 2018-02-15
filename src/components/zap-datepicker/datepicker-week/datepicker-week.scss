@@ -1,5 +1,10 @@
 datepicker-week div div {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  padding: 0 10px;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  // padding: 0 10px;
+  display: flex;
+
+  p {
+    flex: 1 1 0;
+  }
 }

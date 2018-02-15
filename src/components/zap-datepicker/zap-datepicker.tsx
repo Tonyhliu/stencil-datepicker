@@ -203,8 +203,11 @@ export class ZapDatepicker {
   }
 
   _closeDatepicker() {
-    let datepickerElement = document.querySelector('.datepicker-container');
-    datepickerElement.setAttribute('style', '');
+    let datepickerElements = document.querySelectorAll('.datepicker-container');
+    for (let idx = 0; idx < datepickerElements.length; idx++) {
+      const datepicker = datepickerElements[idx];
+      datepicker.setAttribute('style', '');
+    }
 
     // if click off after picking first but not second date
     if (this.datesObj.firstDate && !this.datesObj.secondDate) {

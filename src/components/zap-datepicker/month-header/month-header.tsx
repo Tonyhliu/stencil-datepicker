@@ -12,9 +12,8 @@ import {
 export class MonthHeader {
   @Prop() year: number;
   @Prop() month: number;
-  @Prop() months: any;
+  @Prop() mobile: boolean;
   @Prop() secondMonthHeader: boolean;
-  @Prop() updateCb: any;
 
   @Event() monthChanged: EventEmitter;
   monthChangedHandler(arrowDirection) {
@@ -37,9 +36,20 @@ export class MonthHeader {
       11: 'December'
     };
 
-    const arrow = this.secondMonthHeader ? <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p> : <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>;
+    // if first month header, left arrow. Otherwise, right arrow
+    let arrow = this.secondMonthHeader ? <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8594;</p> : <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8592;</p>;
+
+    if (this.mobile && this.secondMonthHeader) {
+      // down arrow if its the second monthHeader & on mobile
+      console.log('down arrow');
+      arrow = <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8595;</p>;
+    } else if (this.mobile && !this.secondMonthHeader) {
+      console.log('up arrow');
+      arrow = <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8593;</p>;
+    }
+
     return (
-      <div class="month-header">
+      <div class='month-header'>
         {this.secondMonthHeader ? '' : arrow}
           <h3>{`${months[this.month]} ${this.year}` || 'Month Header'}</h3>
         {this.secondMonthHeader ? arrow : ''}

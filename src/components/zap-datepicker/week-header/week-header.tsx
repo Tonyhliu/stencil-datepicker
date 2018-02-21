@@ -39,6 +39,11 @@ export class WeekHeader {
     this.multiDateHover.emit(evt.target);
   }
 
+  @Event() mouseOut: EventEmitter;
+  mouseOutHandler(evt) {
+    this.mouseOut.emit(evt.target);
+  }
+
   render() {
     let rows = [];
     let lastDay = this.lastDay - this.offset;
@@ -47,7 +52,7 @@ export class WeekHeader {
     let offset = this.offset % 7;
     for (let blank = 0; blank < offset; blank++) {
       rows.push(
-        <p class='empty last-month'>{lastDay + 1}</p>
+        <td class='empty last-month'>{lastDay + 1}</td>
       );
       lastDay++;
     }
@@ -61,12 +66,13 @@ export class WeekHeader {
         beforeDate,
         afterDate;
 
+      // if there is a min & max date restriction
       const currentDate = new Date(this.year, this.month - 1, day);
       const maxDate = new Date(this.dateRestrictionObj.maximumDate);
       const minDate = new Date(this.dateRestrictionObj.minimumDate);
       if (dateFns.isAfter(minDate, currentDate) || dateFns.isBefore(maxDate, currentDate)) {
         rows.push(
-          <p class='empty'>{day}</p>
+          <td class='empty'>{day}</td>
         )
       } else {
         if (this.datesObj.firstDate && this.datesObj.secondDate) {
@@ -84,11 +90,11 @@ export class WeekHeader {
           selected = (selectedDay === day && selectedMonth === this.month && selectedYear === this.year);
 
           if (dateFns.isBefore(currentDate, this.datesObj.firstDate)) {
-            beforeDate = true;
+            // beforeDate = true;
             className += ' before-date ';
           } else if (dateFns.isAfter(this.datesObj.hoveredDate, dateFns.subDays(currentDate, 1))) {
             // if hovered date is after first selectedDate
-            afterDate = true;
+            // afterDate = true;
             className += ' after-date ';
           }
         } else {
@@ -104,11 +110,12 @@ export class WeekHeader {
 
         className += selected ? ' selected ' : '';
         rows.push(
-          <p class={className}
+          <td class={className}
             onClick={this.multidate ? this.multiDateSelectedHandler.bind(this) : this.singleDateSelectedHandler.bind(this)}
-            onMouseOver={this.multidate && this.datesObj.firstDate && this.multiDateHoverHandler.bind(this)}>
+            onMouseOver={this.multidate && this.datesObj.firstDate && this.multiDateHoverHandler.bind(this)}
+            onMouseOut={this.mouseOutHandler.bind(this)}>
             {day}
-          </p>
+          </td>
         )
       }
     }
@@ -117,15 +124,40 @@ export class WeekHeader {
     // Get the last day of the month to prepopulate rest of month with days of next month
     for (let lastDayDate = this.lastDayOfMonth.getDay(); lastDayDate < 6; lastDayDate++) {
       rows.push(
-        <p class='empty next-month'>{firstDay}</p>
+        <td class='empty next-month'>{firstDay}</td>
       )
       firstDay++;
     }
 
+    // finalRows = rows.map(vnode => {
+    //   let node = document.createElement(vnode.vtag);
+    //   node.innerText = vnode.vchildren[0].vtext;
+    //   node.attrs = vnode.vattrs;
+    //   return node;
+    // })
+
+    // let numberOfRows = finalRows.length / 7;
+    // let newTrs = [];
+    // for (let idx = 0; idx < numberOfRows; idx++) {
+    //   let tr = document.createElement('tr');
+    //   newTrs.push(tr);
+    // }
+
+    // let temp = 0;
+    // for (let i = 0; i < finalRows.length; i++) {
+    //   if (i % 7 === 0 && i > 0) {
+    //     temp++
+    //   }
+
+    //   newTrs[temp].appendChild(finalRows[i]);
+    // }
+
     return (
-      <div class='week-header-container'>
-        {rows}
-      </div>
+      <table id='my-table'>
+        <tbody class='week-header-container'>
+          {rows}
+        </tbody>
+      </table>
     );
   }
 }

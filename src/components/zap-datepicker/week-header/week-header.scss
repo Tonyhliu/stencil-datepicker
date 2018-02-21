@@ -1,34 +1,33 @@
-week-header .week-header-container {
-  display: flex;
-  flex-wrap: wrap;
+#my-table {
+  width: 100%;
+  border-collapse: collapse !important;
+  border-spacing: 0px !important;
 
-  p {
-    flex: 1 1 0;
-    min-width: 35px;
-    border: 1px solid #e4e7e7 !important;
-    color: #565a5c !important;
+  td {
     padding: 10px 0;
+    height: 38px;
+    width: 39px;
+    box-sizing: border-box !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    border: 1px solid #e4e7e7 !important;
     margin: 0;
-  }
 
-  p:not(.empty):hover {
-    background-color: gray;
-  }
-}
+    &.week-header {
+      &:hover {
+        cursor: pointer;
+      }
 
-.week-header {
-  &:hover {
-    cursor: pointer;
-  }
+      &.selected,
+      &.selected~&.after-date,
+      &.after-date {
+        background-color: pink;
+      }
 
-  &.selected,
-  &.selected ~ &.after-date,
-  &.after-date {
-    background-color: pink;
-  }
-
-  &.before-date:hover {
-    background-color: gray;
+      &.before-date:hover {
+        background-color: gray;
+      }
+    }
   }
 }
 
@@ -49,8 +48,11 @@ week-header .week-header-container {
   }
 }
 
-// .week-header-tbody {
-//   display: table-row-group;
-//   vertical-align: middle;
-//   border-color: inherit;
-// }
+@media (max-width: 800px) {
+  #my-table {
+    td {
+      width: 70px;
+      height: 69px;
+    }
+  }
+}

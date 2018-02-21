@@ -1,32 +1,61 @@
-.month-container {
-  &:first-child {
-    margin-right: 10px !important;
-  }
-
-  &:not(:first-child) {
-    margin-left: 10px !important;
-  }
-}
-
 .month-header {
-  display: flex !important;
-  justify-content: center !important;
-  align-content: center !important;
-  color: #565a5c !important;
-  font-size: 18px !important;
-  text-align: center !important;
-  padding-top: 22px !important;
-  padding-bottom: 37px !important;
-  caption-side: initial !important;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  color: #565a5c;
+  text-align: center;
+  padding-top: 22px;
+  padding-bottom: 37px;
+  caption-side: initial;
 
   p {
-    align-self: center;
-    border: 1px solid #c4c4c4 !important;
-    padding: 5px 10px;
-    margin: 0 40px;
+    border: 1px solid #c4c4c4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.3em;
+    min-width: 2em;
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  h3 {
+    min-width: 10em;
+  }
+}
+
+@media (max-width: 800px) {
+  .month-container {
+    position: relative;
+
+    &.first-month-container {
+      padding-top: 60px;
+
+      .month-header p {
+        top: 0;
+      }
+    }
+
+    .month-header {
+      flex-direction: column;
+      padding: 0;
+
+      p {
+        position: absolute;
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+      }
+    }
+  }
+
+
+  .second-month-container {
+    padding-bottom: 75px;
+    p {
+      bottom: 0;
     }
   }
 }

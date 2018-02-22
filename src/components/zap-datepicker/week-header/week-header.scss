@@ -28,15 +28,15 @@
         cursor: pointer;
       }
 
-      &.selected,
-      &.selected~&.after-date {
-        background-color: $color-azure;
-        color: white;
-      }
-
       &.after-date {
         background-color: $color-azure;
-        // opacity: 0.5;
+        opacity: 0.5;
+      }
+
+      &.selected,
+      &.after-date {
+        background-color: $color-azure;
+        color: $color-zircon;
       }
 
       &.before-date:hover {

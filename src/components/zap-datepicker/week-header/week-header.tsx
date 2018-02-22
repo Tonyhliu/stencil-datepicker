@@ -95,7 +95,7 @@ export class WeekHeader {
           if (dateFns.isBefore(currentDate, this.datesObj.firstDate)) {
             className += ' before-date ';
             todaysDate = false;
-          } else if (dateFns.isAfter(this.datesObj.hoveredDate, dateFns.subDays(currentDate, 1))) {
+          } else if (dateFns.isAfter(dateFns.addDays(this.datesObj.hoveredDate, 1), currentDate) && dateFns.isAfter(currentDate, this.datesObj.firstDate)) {
             // if hovered date is after first selectedDate
             className += ' after-date ';
             todaysDate = false;

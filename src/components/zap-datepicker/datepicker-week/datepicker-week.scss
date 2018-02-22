@@ -1,10 +1,11 @@
-datepicker-week div div {
-  // display: grid;
-  // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  // padding: 0 10px;
+@import '../../../../node_modules/@zaplabs/zap-shared-styles/main/color-library';
+
+datepicker-week .datepicker-week-container {
   display: flex;
 
-  p {
+  th {
+    color: $color-midnight;
     flex: 1 1 0;
+    padding: 12px 0;
   }
 }

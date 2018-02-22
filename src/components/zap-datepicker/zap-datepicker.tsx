@@ -32,6 +32,7 @@ export class ZapDatepicker {
   @State() innerWidth: number;
 
   @State() dateObj: any = {
+    todaysDate: dateFns.format(new Date(), 'MM/DD/YYYY'),
     firstDate: dateFns.format(new Date(), 'MM/DD/YYYY'),
     firstDateYear: parseInt(dateFns.format(new Date(), 'YYYY')),
     firstDateMonth: parseInt(dateFns.format(new Date(), 'M')),
@@ -336,7 +337,7 @@ export class ZapDatepicker {
     return (
       <div class={`zap-datepicker ${this.innerWidth < 800 ? 'mobile-view' : ''}`}>
         <p class='selected-date'
-          onClick={this._toggleDatepicker}>{!this.multiDate ? this.dateObj.selectedDate || 'Date' : `${this.datesObj.firstDate || 'Start Date'} - ${this.datesObj.secondDate || 'End Date'}`}
+          onClick={this._toggleDatepicker}>{!this.multiDate ? this.dateObj.selectedDate || 'Select Date' : `${this.datesObj.firstDate || 'Start Date'} - ${this.datesObj.secondDate || 'End Date'}`}
           <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 2000.000000 2000.000000"
           preserveAspectRatio="xMidYMid meet">
@@ -349,7 +350,7 @@ export class ZapDatepicker {
 
         <div class='datepicker-container'>
           <div class={`mobile-date-header ${this.innerWidth < 800 ? '' : 'hide'}`}>
-            <p>{!this.multiDate ? this.dateObj.selectedDate || 'Date' : `${this.datesObj.firstDate || 'Start Date'} - ${this.datesObj.secondDate || 'End Date'}`}</p>
+            <p>{!this.multiDate ? this.dateObj.selectedDate || 'Select Date' : `${this.datesObj.firstDate || 'Start Date'} - ${this.datesObj.secondDate || 'End Date'}`}</p>
           </div>
           <div class='month-container first-month-container'>
             <month-header
@@ -358,7 +359,8 @@ export class ZapDatepicker {
               mobile={this.innerWidth < 800}
               >
             </month-header>
-            <datepicker-week>
+            <datepicker-week
+              mobile={this.innerWidth < 800}>
             </datepicker-week>
             <week-header
               date={this.dateObj.firstDate}
@@ -372,6 +374,7 @@ export class ZapDatepicker {
               multidate={this.multiDate}
               offset={offset}
               selectedDate={this.dateObj.selectedDate}
+              todaysDate={this.dateObj.todaysDate}
               year={this.dateObj.firstDateYear}
             ></week-header>
           </div>
@@ -383,7 +386,8 @@ export class ZapDatepicker {
               secondMonthHeader
               >
             </month-header>
-            <datepicker-week>
+            <datepicker-week
+              mobile={this.innerWidth < 800}>
             </datepicker-week>
             <week-header
               data-second-month-header
@@ -398,12 +402,16 @@ export class ZapDatepicker {
               multidate={this.multiDate}
               offset={offsetTwo}
               selectedDate={this.dateObj.selectedDate}
+              todaysDate={this.dateObj.todaysDate}
               year={this.dateObj.secondDateYear}
             ></week-header>
           </div>
           <div class="buttons-container">
             <button onClick={(e) => this._clearDates(e)}>Clear</button>
-            {this.multiDate ? <button onClick={(e) => this._applyDates(e)}>Apply</button> : ''}
+            {this.multiDate ? <button
+                                disabled={!this.datesObj.firstDate || !this.datesObj.secondDate}
+                                onClick={(e) => this._applyDates(e)}>Apply</button>
+                                : ''}
           </div>
         </div>
       </div>

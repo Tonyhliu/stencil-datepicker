@@ -23,6 +23,7 @@ export class WeekHeader {
   @Prop() offset: number;
   @Prop() selectedDate: any;
   @Prop() year: number;
+  @Prop() todaysDate: string;
 
   @Event() singleDateSelected: EventEmitter;
   singleDateSelectedHandler(evt) {
@@ -70,6 +71,8 @@ export class WeekHeader {
       const currentDate = new Date(this.year, this.month - 1, day);
       const maxDate = new Date(this.dateRestrictionObj.maximumDate);
       const minDate = new Date(this.dateRestrictionObj.minimumDate);
+      let todaysDate = dateFns.isEqual(currentDate, this.todaysDate);
+
       if (dateFns.isAfter(minDate, currentDate) || dateFns.isBefore(maxDate, currentDate)) {
         rows.push(
           <td class='empty'>{day}</td>
@@ -90,12 +93,12 @@ export class WeekHeader {
           selected = (selectedDay === day && selectedMonth === this.month && selectedYear === this.year);
 
           if (dateFns.isBefore(currentDate, this.datesObj.firstDate)) {
-            // beforeDate = true;
             className += ' before-date ';
+            todaysDate = false;
           } else if (dateFns.isAfter(this.datesObj.hoveredDate, dateFns.subDays(currentDate, 1))) {
             // if hovered date is after first selectedDate
-            // afterDate = true;
             className += ' after-date ';
+            todaysDate = false;
           }
         } else {
           // logic for single date picker
@@ -108,7 +111,15 @@ export class WeekHeader {
           }
         }
 
-        className += selected ? ' selected ' : '';
+        if (selected) {
+          className += ' selected ';
+          todaysDate = false;
+        }
+
+        if (todaysDate) {
+          className += ' today '
+        }
+
         rows.push(
           <td class={className}
             onClick={this.multidate ? this.multiDateSelectedHandler.bind(this) : this.singleDateSelectedHandler.bind(this)}
@@ -128,29 +139,6 @@ export class WeekHeader {
       )
       firstDay++;
     }
-
-    // finalRows = rows.map(vnode => {
-    //   let node = document.createElement(vnode.vtag);
-    //   node.innerText = vnode.vchildren[0].vtext;
-    //   node.attrs = vnode.vattrs;
-    //   return node;
-    // })
-
-    // let numberOfRows = finalRows.length / 7;
-    // let newTrs = [];
-    // for (let idx = 0; idx < numberOfRows; idx++) {
-    //   let tr = document.createElement('tr');
-    //   newTrs.push(tr);
-    // }
-
-    // let temp = 0;
-    // for (let i = 0; i < finalRows.length; i++) {
-    //   if (i % 7 === 0 && i > 0) {
-    //     temp++
-    //   }
-
-    //   newTrs[temp].appendChild(finalRows[i]);
-    // }
 
     return (
       <table id='my-table'>

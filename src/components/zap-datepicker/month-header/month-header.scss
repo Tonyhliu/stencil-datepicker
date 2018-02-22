@@ -1,7 +1,9 @@
+@import '../../../../node_modules/@zaplabs/zap-shared-styles/main/color-library';
+
 .month-header {
   display: flex;
-  justify-content: center;
-  align-content: center;
+  justify-content: space-between;
+  align-items: center;
   color: #565a5c;
   text-align: center;
   padding-top: 22px;
@@ -10,6 +12,7 @@
 
   p {
     border: 1px solid #c4c4c4;
+    color: $color-midnight;
     display: flex;
     justify-content: center;
     align-items: center;

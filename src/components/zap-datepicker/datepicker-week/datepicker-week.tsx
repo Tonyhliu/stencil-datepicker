@@ -1,7 +1,6 @@
 import {
   Component,
   Prop,
-  State
 } from '@stencil/core';
 
 @Component({
@@ -9,32 +8,33 @@ import {
   styleUrl: 'datepicker-week.scss'
 })
 export class DatepickerWeek {
+  @Prop() mobile: boolean;
   _sayDay() {
     console.log(this);
   }
 
   render() {
     const days = {
-      'Sunday': 'Su',
-      'Monday': 'Mo',
-      'Tuesday': 'Tu',
-      'Wednesday': 'We',
-      'Thursday': 'Th',
-      'Friday': 'Fr',
-      'Saturday': 'Sa',
+      'Su': 'S',
+      'Mo': 'M',
+      'Tu': 'T',
+      'We': 'W',
+      'Th': 'T',
+      'Fr': 'F',
+      'Sa': 'S',
     };
 
     return (
-      <div>
-        <div>
+      <div class='datepicker-week-container'>
           {
             Object.keys(days).map(day => {
               return (
-                <p class='datepicker-week-test' onClick={this._sayDay}>{days[day]}</p>
+                <th class='datepicker-week-header'>
+                  {this.mobile ? days[day] : day}
+                </th>
               )
             })
           }
-        </div>
       </div>
     );
   }

@@ -1,17 +1,27 @@
+@import '../../../../node_modules/@zaplabs/zap-shared-styles/main/color-library';
+
 #my-table {
   width: 100%;
   border-collapse: collapse !important;
   border-spacing: 0px !important;
 
   td {
-    padding: 10px 0;
-    height: 38px;
-    width: 39px;
+    padding: 12px 0;
+    // height: 38px;
+    // width: 39px;
     box-sizing: border-box !important;
+    color: $color-midnight;
     font-size: 14px !important;
     text-align: center !important;
     border: 1px solid #e4e7e7 !important;
     margin: 0;
+
+    &.today {
+      background-color: $color-azure;
+      border-color: $color-azure;
+      color: white;
+      opacity: 0.5;
+    }
 
     &.week-header {
       &:hover {
@@ -19,13 +29,18 @@
       }
 
       &.selected,
-      &.selected~&.after-date,
+      &.selected~&.after-date {
+        background-color: $color-azure;
+        color: white;
+      }
+
       &.after-date {
-        background-color: pink;
+        background-color: $color-azure;
+        // opacity: 0.5;
       }
 
       &.before-date:hover {
-        background-color: gray;
+        background-color: $color-heather;
       }
     }
   }

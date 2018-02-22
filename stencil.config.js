@@ -1,3 +1,5 @@
+const sass = require('@stencil/sass');
+
 exports.config = {
   namespace: 'zapstencilcomponents',
   generateDistribution: true,
@@ -11,6 +13,11 @@ exports.config = {
       ]
     }
   ],
+  plugins: [
+    sass({
+
+    })
+  ]
 };
 
 exports.devServer = {

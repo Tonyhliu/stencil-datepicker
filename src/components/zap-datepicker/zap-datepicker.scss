@@ -1,8 +1,10 @@
+@import '../../../node_modules/@zaplabs/zap-shared-styles/main/color-library';
+
 .zap-datepicker {
   display: flex;
   flex-direction: column;
   width: 620px !important;
-  height: 366px !important;
+  height: 100px !important;
   position: relative;
   font-size: 16px !important;
 
@@ -12,11 +14,13 @@
 
   .selected-date {
     border: 2px solid green;
+    color: $color-rolling-stone;
     display: flex;
     font-size: 22px;
     justify-content: space-between;
     padding: 10px;
     width: 300px;
+
     svg {
       width: 30px !important;
       height: 25px !important;
@@ -43,23 +47,31 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.15);
-    padding: 24px;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    white-space: normal !important;
+    padding: 1.5em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: normal;
     text-align: center;
     top: 90px;
     width: 100%;
-    visibility: visible !important;
+    visibility: visible;
+
+    .mobile-date-header {
+      display: flex;
+
+      &.hide {
+        display: none;
+      }
+    }
 
     .month-container {
       display: inline-block;
       width: calc(50% - 10px);
 
-      &:first-child {
+      &.first-month-container {
         margin-right: 10px;
       }
-      &:not(:first-child) {
+      &.second-month-container {
         margin-left: 10px;
       }
     }
@@ -73,6 +85,15 @@
       top: 0px !important;
       height: 100%;
       padding: 0;
+
+      .mobile-date-header {
+        justify-content: center;
+        align-items: center;
+
+        p {
+          font-size: .875em;
+        }
+      }
 
       .month-container {
         display: block;

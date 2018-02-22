@@ -19,10 +19,12 @@
   },
   "dependencies": {
     "@stencil/core": "^0.1.5",
+    "@zaplabs/zap-shared-styles": "^1.0.4",
     "date-fns": "^1.29.0"
   },
   "devDependencies": {
     "@stencil/dev-server": "latest",
+    "@stencil/sass": "0.0.2",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1"

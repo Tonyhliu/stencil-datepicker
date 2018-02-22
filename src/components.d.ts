@@ -6,33 +6,42 @@
 
 
 import {
-  ZapDatepicker as ZapDatepicker
-} from './components/zap-datepicker/zap-datepicker';
+  WeekHeader as WeekHeader
+} from './components/zap-datepicker/week-header/week-header';
 
 declare global {
-  interface HTMLZapDatepickerElement extends ZapDatepicker, HTMLElement {
+  interface HTMLWeekHeaderElement extends WeekHeader, HTMLElement {
   }
-  var HTMLZapDatepickerElement: {
-    prototype: HTMLZapDatepickerElement;
-    new (): HTMLZapDatepickerElement;
+  var HTMLWeekHeaderElement: {
+    prototype: HTMLWeekHeaderElement;
+    new (): HTMLWeekHeaderElement;
   };
   interface HTMLElementTagNameMap {
-    "zap-datepicker": HTMLZapDatepickerElement;
+    "week-header": HTMLWeekHeaderElement;
   }
   interface ElementTagNameMap {
-    "zap-datepicker": HTMLZapDatepickerElement;
+    "week-header": HTMLWeekHeaderElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "zap-datepicker": JSXElements.ZapDatepickerAttributes;
+      "week-header": JSXElements.WeekHeaderAttributes;
     }
   }
   namespace JSXElements {
-    export interface ZapDatepickerAttributes extends HTMLAttributes {
-      maxDate?: string;
-      minDate?: string;
-      multiDate?: boolean;
-      zapDatepickerId?: any;
+    export interface WeekHeaderAttributes extends HTMLAttributes {
+      date?: any;
+      dateRestrictionObj?: any;
+      datesObj?: any;
+      day?: number;
+      daysInMonth?: number;
+      lastDay?: number;
+      lastDayOfMonth?: any;
+      month?: number;
+      multidate?: boolean;
+      offset?: number;
+      selectedDate?: any;
+      todaysDate?: string;
+      year?: number;
     }
   }
 }

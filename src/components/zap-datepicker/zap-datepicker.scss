@@ -4,10 +4,10 @@
 // @import 'color-library';
 
 .zap-datepicker {
-  display: flex;
-  flex-direction: column;
-  width: 620px !important;
-  height: 100px !important;
+  // display: flex;
+  // flex-direction: column;
+  width: 300px !important;
+  // height: 100px !important;
   position: relative;
   font-size: 16px !important;
 
@@ -22,7 +22,7 @@
     font-size: 22px;
     justify-content: space-between;
     padding: 10px;
-    width: 300px;
+    // width: 300px;
 
     svg {
       width: 30px !important;
@@ -56,7 +56,7 @@
     white-space: normal;
     text-align: center;
     top: 90px;
-    width: 100%;
+    width: 620px;
     visibility: visible;
 
     .mobile-date-header {

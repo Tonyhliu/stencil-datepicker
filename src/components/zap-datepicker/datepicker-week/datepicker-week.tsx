@@ -30,7 +30,7 @@ export class DatepickerWeek {
             Object.keys(days).map(day => {
               return (
                 <th class='datepicker-week-header'>
-                  {this.mobile ? days[day] : day}
+                  <h5>{this.mobile ? days[day] : day}</h5>
                 </th>
               )
             })

@@ -53,7 +53,9 @@ export class WeekHeader {
     let offset = this.offset % 7;
     for (let blank = 0; blank < offset; blank++) {
       rows.push(
-        <td class='empty last-month'>{lastDay + 1}</td>
+        <td class='empty last-month'>
+          <p>{lastDay + 1}</p>
+        </td>
       );
       lastDay++;
     }
@@ -75,7 +77,9 @@ export class WeekHeader {
 
       if (dateFns.isAfter(minDate, currentDate) || dateFns.isBefore(maxDate, currentDate)) {
         rows.push(
-          <td class='empty'>{day}</td>
+          <td class='empty'>
+            <p>{day}</p>
+          </td>
         )
       } else {
         if (this.datesObj.firstDate && this.datesObj.secondDate) {
@@ -125,7 +129,7 @@ export class WeekHeader {
             onClick={this.multidate ? this.multiDateSelectedHandler.bind(this) : this.singleDateSelectedHandler.bind(this)}
             onMouseOver={this.multidate && this.datesObj.firstDate && this.multiDateHoverHandler.bind(this)}
             onMouseOut={this.mouseOutHandler.bind(this)}>
-            {day}
+            <p>{day}</p>
           </td>
         )
       }
@@ -135,7 +139,9 @@ export class WeekHeader {
     // Get the last day of the month to prepopulate rest of month with days of next month
     for (let lastDayDate = this.lastDayOfMonth.getDay(); lastDayDate < 6; lastDayDate++) {
       rows.push(
-        <td class='empty next-month'>{firstDay}</td>
+        <td class='empty next-month'>
+          <p>{firstDay}</p>
+        </td>
       )
       firstDay++;
     }

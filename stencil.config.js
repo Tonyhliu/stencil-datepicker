@@ -15,7 +15,10 @@ exports.config = {
   ],
   plugins: [
     sass({
-
+      includePaths: [
+        // require("node_modules/@zaplabs/zap-shared-styles").includePaths
+        // '/node_modules/@zaplabs/zap-shared-styles'
+      ]
     })
   ]
 };

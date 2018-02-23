@@ -41,10 +41,8 @@ export class MonthHeader {
 
     if (this.mobile && this.secondMonthHeader) {
       // down arrow if its the second monthHeader & on mobile
-      console.log('down arrow');
       arrow = <p onClick={this.monthChangedHandler.bind(this, 'plus')}>&#8595;</p>;
     } else if (this.mobile && !this.secondMonthHeader) {
-      console.log('up arrow');
       arrow = <p onClick={this.monthChangedHandler.bind(this, 'minus')}>&#8593;</p>;
     }
 

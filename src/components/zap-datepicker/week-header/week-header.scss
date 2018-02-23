@@ -6,21 +6,27 @@
   border-spacing: 0px !important;
 
   td {
-    // padding: 12px 0;
-    // height: 38px;
-    // width: 39px;
-    box-sizing: border-box !important;
-    color: $color-midnight;
-    font-size: 14px !important;
-    text-align: center !important;
     border: 1px solid #e4e7e7 !important;
-    margin: 0;
+
+    p {
+      padding: 12px 0;
+      // height: 38px;
+      // width: 39px;
+      box-sizing: border-box !important;
+      color: $color-midnight;
+      font-size: 14px !important;
+      text-align: center !important;
+      margin: 0;
+    }
 
     &.today {
       background-color: $color-azure;
       border-color: $color-azure;
-      color: white;
       opacity: 0.5;
+
+      p {
+        color: white;
+      }
     }
 
     &.week-header {
@@ -36,7 +42,9 @@
       &.selected,
       &.after-date {
         background-color: $color-azure;
-        color: $color-zircon;
+        p {
+          color: $color-zircon;
+        }
       }
 
       &.before-date:hover {

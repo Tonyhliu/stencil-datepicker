@@ -27,12 +27,12 @@ export class WeekHeader {
 
   @Event() singleDateSelected: EventEmitter;
   singleDateSelectedHandler(evt) {
-    this.singleDateSelected.emit(evt.currentTarget);
+    this.singleDateSelected.emit(evt.target);
   }
 
   @Event() multiDateSelected: EventEmitter;
   multiDateSelectedHandler(evt) {
-    this.multiDateSelected.emit(evt.currentTarget);
+    this.multiDateSelected.emit(evt.target);
   }
 
   @Event() multiDateHover: EventEmitter;
